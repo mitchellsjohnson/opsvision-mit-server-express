@@ -17,3 +17,10 @@ export const getAdminMessage = (): Message => {
     text: "This is an admin message.",
   };
 };
+
+export const getAdminFeaturesFlag = (): Message => {
+  return {
+    text: "Access to Admin Features is allowed for this user.",
+  };
+};
+

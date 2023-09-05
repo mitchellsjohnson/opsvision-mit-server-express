@@ -3,11 +3,12 @@ import {
   checkRequiredPermissions,
   validateAccessToken,
 } from "../middleware/auth0.middleware";
-import { AdminMessagesPermissions } from "./messages.permissions";
+import { AdminMessagesPermissions, AdminFeaturesPermissions } from "./messages.permissions";
 import {
   getAdminMessage,
   getProtectedMessage,
   getPublicMessage,
+  getAdminFeaturesFlag,
 } from "./messages.service";
 
 export const messagesRouter = express.Router();
@@ -34,3 +35,15 @@ messagesRouter.get(
     res.status(200).json(message);
   }
 );
+
+messagesRouter.get(
+  "/admin-features",
+  validateAccessToken,
+  checkRequiredPermissions([AdminFeaturesPermissions.Read]),
+  (req, res) => {
+    const message = getAdminFeaturesFlag();
+
+    res.status(200).json(message);
+  }
+);
+
